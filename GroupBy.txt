@@ -1,0 +1,70 @@
+--A bunch of slightly different functions that do slightly different things.
+--padzeroes is essential for all of them.
+
+Function GroupByMax(Groupme, modu, NumDigits, Max)
+If IsNull(Groupme) Then
+GroupByMax = "unknown"
+ElseIf Not IsNumeric(Groupme) Then
+GroupByMax = "unknown"
+ElseIf CDbl(Groupme) > Max Then
+    GroupByMax = ">" & Max
+Else
+GroupByMax = GenerateBucketString(Groupme,modu,NumDigits)
+End If
+End Function
+
+Function AgeRange(Groupme, modu, NumDigits, Max)
+If IsNull(Groupme) Then
+AgeRange = "unknown"
+ElseIf Not IsNumeric(Groupme) Then
+AgeRange = "unknown"
+ElseIf CDbl(Groupme) >= Max Then
+    AgeRange = ">=" & Max & " years"
+Else
+AgeRange = GenerateBucketString(Groupme,modu,NumDigits)
+End If
+
+End Function
+
+Function GroupBy(Groupme, modu, NumDigits)
+
+If IsNull(Groupme) Then
+GroupBy = "unknown"
+ElseIf Not IsNumeric(Groupme) Then
+GroupBy = "unknown"
+Else
+GroupBy = GenerateBucketString(Groupme,modu,NumDigits)
+End If
+
+End Function
+
+Function GroupByPercentage(Groupme)
+GroupByPercentage = GroupByMax(Groupme, 10, 3, 100)
+If GroupByPercentage = ">100" Then GroupByPercentage = "100"
+If GroupByPercentage = "100-110" Then GroupByPercentage = "100"
+End Function
+
+Function padzeros(WorkingNo, Padto) As String
+Dim i As Integer
+Dim WorkingString As String
+If IsNull(WorkingNo) Then
+padzeros = ""
+Else
+WorkingString = WorkingNo
+
+For i = 1 To Padto - Len(WorkingString)
+padzeros = 0 & padzeros
+Next i
+
+padzeros = padzeros & WorkingString
+End If
+End Function
+
+Function GenerateBucketString(Groupme, modu, NumDigits) As String
+    Dim Firsthalf, Secondhalf As String
+    Dim Rounded As Long
+    Rounded = Int(Groupme) 'Int() added by me- prevents "Groupme < Firsthalf"
+    Firsthalf = padzeros((Rounded \ modu) * modu, NumDigits)
+    Secondhalf = padzeros((Rounded \ modu + 1) * modu - 1, NumDigits)
+    GenerateBucketString = Firsthalf & "-" & Secondhalf
+End Function

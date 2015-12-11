@@ -1,0 +1,7 @@
+Function format_date(ByVal the_date) As String
+    Dim d, m, y As String
+    d = day(the_date)
+    m = month(the_date)
+    y = year(the_date)
+    format_date = d & "/" & m & "/" & y
+End Function

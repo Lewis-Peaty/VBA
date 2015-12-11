@@ -1,0 +1,16 @@
+'This function updates a bunch of named ranges.
+'The practice of building the string and passing to the range function
+'comes from Excel refusing to accept it any other way for reasons unknown.
+Sub update_ranges()
+    
+    Dim str As String
+    str = "C9:C" & Worksheets("Breakdown List").Range("C9").End(xlDown).Row
+    Worksheets("Breakdown List").Range(str).Name = "Breakdown_Defect"
+    
+    str = "E9:E" & Worksheets("Breakdown List").Range("E9").End(xlDown).Row
+    Worksheets("Breakdown List").Range(str).Name = "Breakdown_Performance"
+    
+    str = "A9:A" & Worksheets("Breakdown List").Range("A9").End(xlDown).Row
+    Worksheets("Breakdown List").Range(str).Name = "Breakdown_Profile"
+
+End Sub

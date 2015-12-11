@@ -1,0 +1,39 @@
+Sub export_fields_to_breakdown_lists()
+Application.Calculation = xlCalculationManual
+Application.ScreenUpdating = False
+
+'profile
+Dim counter As Integer
+counter = 0
+For Each c In Worksheets("Field List").Range("C:C").Cells
+    If c.Value = True Then
+        Worksheets("Breakdown List").Range("A9").Offset(counter, 0).Value = c.Offset(0, -1).Value
+        counter = counter + 1
+    End If
+Next c
+
+'defect
+counter = 0
+For Each c In Worksheets("Field List").Range("D:D").Cells
+    If c.Value = True Then
+        Worksheets("Breakdown List").Range("C9").Offset(counter, 0).Value = c.Offset(0, -2).Value
+        counter = counter + 1
+    End If
+Next c
+
+'performance (failure)
+counter = 0
+For Each c In Worksheets("Field List").Range("E:E").Cells
+    If c.Value = True Then
+        Worksheets("Breakdown List").Range("E9").Offset(counter, 0).Value = c.Offset(0, -3).Value
+        counter = counter + 1
+    End If
+Next c
+
+Application.Calculation = xlCalculationAutomatic
+Application.ScreenUpdating = True
+
+'update the named ranges to reflect the new breakdown lists
+Call update_ranges
+
+End Sub

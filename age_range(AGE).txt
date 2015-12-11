@@ -1,0 +1,50 @@
+Option Compare Database
+
+Public Function age_range(ByVal age As Variant) As String
+            If age < 6 Then
+                age_range = "0-5"
+            ElseIf age < 11 Then
+                age_range = "6-10"
+            ElseIf age < 16 Then
+                age_range = "11-15"
+            ElseIf age < 21 Then
+                age_range = "16-20"
+            ElseIf age < 26 Then
+                age_range = "21-25"
+            ElseIf age < 31 Then
+                age_range = "26-30"
+            ElseIf age < 36 Then
+                age_range = "31-35"
+            ElseIf age < 41 Then
+                age_range = "36-40"
+            Else
+                age_range = "40+"
+            End If
+End Function
+
+
+'much cooler version
+Const age_bucket_size = 5
+Const age_upper_limit = 40
+
+Public Function age_range(ByVal age As Integer) As String
+    Dim upper As Integer
+    Dim lower As Integer
+    lower = Int((age / age_bucket_size)) * age_bucket_size
+    upper = lower + age_bucket_size - 1
+    age_range = lower & "-" & upper
+    If upper > age_upper_limit Then age_range = age_upper_limit & "+"
+End Function
+
+'general version
+Const bucket_size = 5
+Const upper_limit = 40
+
+Public Function age_range(ByVal age As Integer) As String
+    Dim upper As Integer
+    Dim lower As Integer
+    lower = Int((age / bucket_size)) * bucket_size
+    upper = lower + bucket_size - 1
+    age_range = lower & "-" & upper
+    If upper > upper_limit Then age_range = upper_limit & "+"
+End Function

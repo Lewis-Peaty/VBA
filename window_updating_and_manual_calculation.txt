@@ -1,0 +1,6 @@
+
+Application.Calculation = xlCalculationManual
+Application.ScreenUpdating = False
+
+Application.Calculation = xlCalculationAutomatic
+Application.ScreenUpdating = True
