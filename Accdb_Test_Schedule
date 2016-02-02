@@ -1,0 +1,37 @@
+Option Compare Database
+
+'Sample test schedule for an accdb with stored test queries.
+'Alternatively, the sql could be defined in the run_tests() sub
+Sub run_tests()
+
+    Dim rstTestResults As Recordset
+    Set rstTestResults = CurrentDb.OpenRecordset("tst1 Test tbl1 For Duplicates")
+    rstTestResults.MoveLast 'Move cursor to last record
+    If rstTestResults.RecordCount = 7132 Then
+        Debug.Print "PASSED - Found Expected # Duplicates In tbl1 [ n = 7132 ]"
+    Else
+        Debug.Print "FAILED - Found Unexpected # Duplicates In tbl1" & "[ n = " & rstTestResults.RecordCount & " ]"
+    End If
+    
+    Set rstTestResults = CurrentDb.OpenRecordset("tst2 Test a1 For Duplicates")
+        If rstTestResults.RecordCount = 0 Then
+        Debug.Print "PASSED - No Duplicates In a1"
+    Else
+        Debug.Print "FAILED - Duplicates Found In a1"
+    End If
+    
+    Set rstTestResults = CurrentDb.OpenRecordset("tst3 Test tbl2 For Duplicates")
+    If rstTestResults.RecordCount = 0 Then
+        Debug.Print "PASSED - No duplicates in tbl2"
+    Else
+        Debug.Print "FAILED - Duplicates found in tbl2"
+    End If
+    
+    Set rstTestResults = CurrentDb.OpenRecordset("tst4 Test b1 Join c1 Is Empty")
+        If rstTestResults.RecordCount = 0 Then
+        Debug.Print "PASSED - No PIDs found in intersection of b1 and c1"
+    Else
+        Debug.Print "FAILED - PIDs found in intersection of b1 and c1"
+    End If
+    
+End Sub
