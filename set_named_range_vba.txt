@@ -1,6 +1,3 @@
-'This function updates a bunch of named ranges.
-'The practice of building the string and passing to the range function
-'comes from Excel refusing to accept it any other way for reasons unknown.
 Sub update_ranges()
     
     Dim str As String
