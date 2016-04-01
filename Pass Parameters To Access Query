@@ -1,0 +1,28 @@
+'REFERENCE: http://forums.devarticles.com/microsoft-access-development-49/pass-parameters-from-vba-to-query-62367.html
+To pass parameters to a query in VBA is really quite simple:
+
+'First we'll set some variables:
+
+Dim qdf As Querydef
+Dim rst As Recordset
+
+'then we'll open up the query:
+
+Set qdf = CurrentDB.OpenQueryDef(qryName)
+
+'Now we'll assign values to the query using the parameters option:
+
+qdf.Parameters(0) = qryStartDate
+qdf.Parameters(1) = qryEndDate
+
+'Now we'll convert the querydef to a recordset and run it
+
+Set rst = qdf.OpenRecordset
+
+'Run some code on the recordset
+
+'Close all objects
+rst.Close
+qdf.Close
+Set rst = Nothing
+Set qdf = Nothing
