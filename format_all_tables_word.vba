@@ -4,8 +4,10 @@ Sub ApplyTableStyle()
         tbl.Style = "Medium Shading 1 - Accent 6"
         tbl.Rows.Alignment = wdAlignRowCenter
         tbl.AutoFitBehavior wdAutoFitWindow
-        'For Each c In tbl.Columns
-        '    c.ParagraphFormat.Alignment = wdAlignParagraphCenter
-        'Next c
+    Next
+    For Each cht In ActiveDocument.InlineShapes
+        cht.Height = 300
+        cht.Width = 500
     Next
 End Sub
+
